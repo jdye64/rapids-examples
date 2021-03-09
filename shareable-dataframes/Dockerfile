@@ -61,12 +61,14 @@ RUN cd /tmp \
  && make install -j${PARALLEL_LEVEL} \
  && cd /tmp && rm -rf /tmp/cmake-$CMAKE_VERSION*
 
-# checkout the repo inside the container making it more portable
-RUN mkdir -p /rapids \
- && git clone https://github.com/jdye64/rapids-examples.git /rapids/rapids-examples
+# # checkout the repo inside the container making it more portable
+# RUN mkdir -p /rapids \
+#  && git clone https://github.com/jdye64/rapids-examples.git /rapids/rapids-examples
 
-# Create shareable_dataframes conda environment
-RUN conda env create -f /rapids/rapids-examples/shareable-dataframes/conda/shareable_dataframes.yml --name shareable_dataframes
+ADD . /rapids/rapids-examples/shareable-dataframes
+
+# # Create shareable_dataframes conda environment
+# RUN conda env create -f /rapids/rapids-examples/shareable-dataframes/conda/shareable_dataframes.yml --name shareable_dataframes
 
 # Configure
 RUN cmake \

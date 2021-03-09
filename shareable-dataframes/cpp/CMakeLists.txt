@@ -82,6 +82,18 @@ CPMAddPackage(NAME  cudf
                         "AUTO_DETECT_CUDA_ARCHITECTURES ON"
     )
 
+
+######################################################################################################
+# - clang --------------------------------------------------------------------------------------------
+
+CPMAddPackage(NAME clang
+  VERSION          11.1.0
+  GIT_REPOSITORY   https://github.com/llvm/llvm-project.git
+  GIT_TAG          llvmorg-11.1.0
+  GIT_SHALLOW      TRUE
+  SOURCE_SUBDIR    llvm
+)
+
 ######################################################################################################
 # - shareable_dataframes -----------------------------------------------------------------------------
 
@@ -97,6 +109,7 @@ if(BUILD_SHAREABLE_DATAFRAME)
 
   target_link_libraries(shareable_dataframe
                         cudf::cudf
+                        clang
                         )
 endif()
 
