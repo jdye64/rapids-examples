@@ -65,22 +65,34 @@ set(CUDA_VERSION_STRING "${CUDA_VERSION}")
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -w --expt-extended-lambda --expt-relaxed-constexpr -gencode arch=compute_70,code=sm_70")
 
 ####################################################################################################
+# - Nvidia JITIFY ----------------------------------------------------------------------------------
+
+CPMFindPackage(NAME jitify
+  VERSION         1.0.0
+  GIT_REPOSITORY  https://github.com/rapidsai/jitify.git
+  GIT_TAG         cudf_0.16
+  GIT_SHALLOW     TRUE
+  DOWNLOAD_ONLY   TRUE
+)
+# set(JITIFY_INCLUDE_DIR "${jitify_SOURCE_DIR}" PARENT_SCOPE)
+
+####################################################################################################
 # - cudf -------------------------------------------------------------------------------------------
 
 CPMAddPackage(NAME  cudf
-        VERSION         "0.19.0"
-        GIT_REPOSITORY  https://github.com/rapidsai/cudf.git
-        GIT_TAG         branch-0.19
-        GIT_SHALLOW     TRUE
-        SOURCE_SUBDIR   cpp
-        OPTIONS         "BUILD_TESTS OFF"
-                        "BUILD_BENCHMARKS OFF"
-                        "ARROW_STATIC_LIB ON"
-                        "JITIFY_USE_CACHE ON"
-                        "CUDA_STATIC_RUNTIME ON"
-                        "DISABLE_DEPRECATION_WARNING ON"
-                        "AUTO_DETECT_CUDA_ARCHITECTURES ON"
-    )
+  VERSION         "0.19.0"
+  GIT_REPOSITORY  https://github.com/rapidsai/cudf.git
+  GIT_TAG         branch-0.19
+  GIT_SHALLOW     TRUE
+  SOURCE_SUBDIR   cpp
+  OPTIONS         "BUILD_TESTS OFF"
+                  "BUILD_BENCHMARKS OFF"
+                  "ARROW_STATIC_LIB ON"
+                  "JITIFY_USE_CACHE ON"
+                  "CUDA_STATIC_RUNTIME ON"
+                  "DISABLE_DEPRECATION_WARNING ON"
+                  "AUTO_DETECT_CUDA_ARCHITECTURES ON"
+)
 
 ######################################################################################################
 # - strings_udf --------------------------------------------------------------------------------------

@@ -49,9 +49,11 @@ RUN cd /tmp \
  && make install -j${PARALLEL_LEVEL} \
  && cd /tmp && rm -rf /tmp/cmake-$CMAKE_VERSION*
 
-# checkout the repo inside the container making it more portable
-RUN mkdir -p /rapids \
- && git clone https://github.com/rapidsai/rapids-examples.git /rapids/rapids-examples
+# # checkout the repo inside the container making it more portable
+# RUN mkdir -p /rapids \
+#  && git clone https://github.com/rapidsai/rapids-examples.git /rapids/rapids-examples
+
+ADD . /rapids/rapids-examples/strings_udf
 
 # Configure
 RUN cmake \
